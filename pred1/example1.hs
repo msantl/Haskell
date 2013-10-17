@@ -5,7 +5,7 @@ x = 2
 inc x = x + 1
 digits2Number x y = x * 10 + y
 
-name = "a da nije kurcina"
+name = "a da nije drugo o peto e"
 letter = 'K'
 
 condDec x = if x > 0 then x -1 else x

@@ -22,7 +22,7 @@ showDigit x
   | x == 7 = "seven"
   | x == 8 = "eight"
   | x == 9 = "nine"
-  | otherwise = "wtf"
+  | otherwise = "not valid"
 
 showDecimalHelper1 x
   | x == 0 = ""
@@ -35,7 +35,7 @@ showDecimalHelper1 x
   | x == 7 = "seventy"
   | x == 8 = "eighty"
   | x == 9 = "ninety"
-  | otherwise = "wtf"
+  | otherwise = "not valid"
 
 showDecimalHelper2 x
   | x == 0 = ""
@@ -48,7 +48,7 @@ showDecimalHelper2 x
   | x == 7 = "seven"
   | x == 8 = "eight"
   | x == 9 = "nine"
-  | otherwise = "wtf"
+  | otherwise = "not valid"
 
 showDecimal x = showDecimalHelper1 (div x 10) ++ " " ++ showDecimalHelper2 (mod x 10)
 
