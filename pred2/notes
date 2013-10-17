@@ -1,0 +1,62 @@
+Breaking up string into tokens
+==============================
+  words 
+    - fabolous function
+    - splits a string by whitespace and creates a list of words
+
+  lines 
+    - breaking up a string into lines
+
+  unlines
+    - concatenating lines into a single string
+
+  capitalized
+    - filters word with initialized uppercase letter
+
+  Pattern Matching
+    concat [toUpper g : r | (g:r) <- words s]
+
+Tuples
+===============================
+  assigning values to tuples
+    (a,b) = (1,2)
+
+  extract first and second element of a tuple
+    fst (1, 2) = 1
+    snd (1, 2) = 2
+
+  zip function
+    zip [1,2,3] "abc" = [(1,a) (2,b) (3,c)]
+
+  indexing elements of a list:
+    index xs = zip [1..] xs
+
+    zip3 function
+      - zips triplets
+      zip3 [1..2] [2..3] [3..4]
+
+Types and classes
+===============================
+Every expression in haskell has a type.
+Command :type (or :t) and operator :: to determine/define types
+
+It's a good habit always to provide the type of the function (type signature)
+above function definition.
+  addPairs :: [(Int, Int)] -> [Int]
+  addPairs xs = [x+y | (x,y) <- xs]
+
+Why ?
+(1) Type signature serve as documentation
+(2) Type signature determine waht should this functions actually do, before we
+    even start writing it
+(3) Enable us to detecet type errors
+
+  removeEverySecond :: String -> String
+  wrong: 
+    removeEverySecond s = unwords [w | (i, w) <- zip [1..] s, even i]
+    -- we get a compiler error
+  ok: 
+    removeEverySecond s = unwords [w | (i, w) <- zip [1..] (words s), even i]
+  
+
+
