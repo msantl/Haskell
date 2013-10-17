@@ -49,3 +49,15 @@ showLineNumbers s = unlines $ [(show $ fst x) ++ snd x | x <- parovi ]
 common xs ys = [x | x <- index xs, y <- index ys, (fst x) == (fst y) && (snd x) == (snd y)]
 
 haveAlignment xs ys = not $ null (common xs ys)
+
+--
+factorial :: Int -> Int
+factorial n = product [1..n]
+
+circumference :: Float -> Float
+circumference r = 2 * pi * r
+
+circumference' :: Double -> Double
+circumference' r = 2 * pi * r
+
+

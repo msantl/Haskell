@@ -58,5 +58,5 @@ Why ?
   ok: 
     removeEverySecond s = unwords [w | (i, w) <- zip [1..] (words s), even i]
   
-
+Standard types: Int (64), Integer(oo), Char, Float(32), Double(64), Bool
 
