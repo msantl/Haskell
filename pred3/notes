@@ -1,0 +1,151 @@
+... continues from the last lecture
+=====================
+
+Functions with more parameters
+  examples:
+    concatThree :: String -> String -> String -> String
+    number :: Int -> Int -> Int
+    trimBy :: Int -> String -> String
+
+  - so called CURRIED form (CURRYING)
+  - right associative, Int -> (Int -> (Int -> (Int -> Int)))
+
+  - exercise
+    foo10 w = [x ++ y | x <- lines w, y <- lines w]
+    foo10 :: String -> [String]
+
+    foo11 w = [(x,y) | x <- lines w, y <- lines w]
+    foo11 :: String [(String, String)]
+
+    foo12 w = [y : x | x <- lines w, y <- w]
+    foo12 :: String -> [[Char]]
+
+    foo13 w = [(y : x, w) | x <- lines w, y <- w]
+    foo13 :: String -> [([Char], String)]
+
+    foo14 w = [(x, x == 'a') | x <- w]
+    foo14 :: String -> [(Char, Bool)]
+
+    foo15 s = tail [c | c <- s, isLower c]
+    foo15 :: String -> [Char]
+
+    foo16 s = zip [c | c <- s, isLower c] "Haskell"
+    foo16 :: String -> [(Char, Char)]
+
+    foo17 n c = reverse $ drop n $ c : "Haskell"
+    foo17 :: Int -> (String -> String)
+
+    foo18 xs = last $ words xs
+    foo18 :: String -> String
+
+    foo19 x z = x : 'y' : z
+    foo19 :: Char -> (String -> String)
+
+=====================
+POLYMORPHIC TYPES
+=====================
+
+The types can be polymorphic, i.e. they can be generic so that they adapt to a
+more concrete type
+
+Functions examples: tail, head,  last, fst, length, take, drop, concat, ...
+
+Variables 'a', 'b', etc (written in lowercase) are called TYPE VARIABLES
+
+Functions can be more or less polymorphic (generic)
+  myConcat :: [a] -> [a] -> [a]
+  myConcat s1 s2 == s1 ++ s2
+
+but
+  myConcat' :: String -> String -> String
+  myConcat' s1 s2 = s1 ++ " " ++ s2
+
+
+=====================
+Exercise 2:
+=====================
+
+  foo20 xs = tail xs ++ [head xs]
+  foo20 :: [a] -> [a]
+
+  foo21 xs = (head xs, tail xs)
+  foo21 :: [a] -> (a, [a])
+
+  foo22 x xs = x : xs
+  foo22 :: Char -> [Char] -> [Char]
+
+  foo23 l = init $ tail l
+  foo23 :: [a] -> [a]
+
+  foo24 xss ys = concat xss ++ ys
+  foo24 :: [[a]] -> [a] -> [a]
+
+  foo25 xss ys = (head $ concat xss, head ys)
+  foo25 :: [[t]] -> [t1] -> (t, t1)
+
+  foo26 xs = head $ concat $ concat xs
+  foo26 :: [[[a]]] -> a
+
+  foo27 cs = [[c1, c2] | c1 <- cs, c2 <- cs]
+  foo27 :: [a] -> [[a]]
+
+  foo28 cs = [concat [c1, c2] | c1 <- cs, c2 <- cs]
+  foo28 :: [[a]] -> [[a]]
+
+  foo29 cs = concat [[c1, c2] | c1 <- cs, c2 <- cs]
+  foo29 :: [a] -> [a]
+
+
+=====================
+TYPE CLASSES
+=====================
+
+A type class has nothing to do with classes in OOP.
+A type class is an INTERFACE that determines the behavior of some type.
+
+Basic type classes: Eq, Ord, Show, Read, Enum, Bounded, Num, Integral, Floating
+
+
+=====================
+Exercise 3.
+=====================
+
+  foo30 x ys = if x == head ys then x else last ys
+  foo30 :: Eq => a -> [a] -> a
+
+  foo31 x ys = if x < head ys then x else last ys
+  foo31 :: Ord a => a -> [a] -> a
+
+  foo32 xs yss = if xs == head yss then (head xs) else last xs
+  foo32 :: Eq a => [a] -> [[a]] -> a
+
+  foo33 x ys = if x then zip [1..9] ys else []
+  foo33 :: (Enum a, Num a) => Bool -> [b] -> [(a, b)]
+
+  foo34 w = zip[0..] (lines w)
+  foo34 :: (Enum a, Num a) => String -> (a, String)
+
+  foo35 x y = if odd x then y else x / 10
+  foo35 :: (Fractional a, Integral a) => a -> a -> a
+
+  foo36 xs = sort xs == xs
+  foo36 :: (Ord a) => [a] -> Bool
+
+  foo37 x xs = show x ++ (show $ concat xs)
+  foo37 :: (Show a, Show a1) => a -> [[a1]] -> String 
+
+  foo38 xs = sum $ concat xs
+  foo38 :: Num a => [[a]] -> a
+
+  foo39 xs yss = sum $ [min x y | x <- xs, ys <- yss, y <- ys]
+  foo39 :: (Ord a, Num a) => [a] -> [[a]] -> a
+
+  
+=====================
+TODOs
+=====================
+realToFrac
+
+foo x y z = x ++ y ++ h
+  where h = reverse z ++ f
+        f = reverse x
