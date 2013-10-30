@@ -41,7 +41,6 @@ indices xs = [snd e | e <- zip xs [0..]]
 -- suffixes : returns a list containing suffixes of a given list
 suffixes :: [a] -> [[a]]
 suffixes xs = tails xs
-	where n = length xs
 
 -- prefix : checks if the first list forms a prefix for the second list
 prefix :: Eq a => [a] -> [a] -> Bool
