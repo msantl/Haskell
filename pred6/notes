@@ -1,0 +1,46 @@
+Higher order functions 2
+-----------------------
+
+COMPOSITIONS
+======================
+
+compositions of functions: f . g = f ( g ( x ) )
+the (.) operator :
+    (.) :: (b -> c) -> ( a-> b) -> a -> c
+    f . g = \x -> f (g x)
+    
+    * read from right to left
+
+
+right associative
+    (f . g . h) (x) == f(g(h(x)))
+
+wordsSort = unwords . sort . words
+
+Such a chain of functions is applied from right to left !!
+
+Composition of functions that don't take the same number of arguments
+    initials :: String -> String
+    initials = map toUpper . map head . words
+
+    initials2 = map (toUpper . head) . words
+
+Sections:
+
+    increasePositives :: [Integer] -> [Integer]
+    increasePositives = map (+1) . filter (>0)
+
+    tokenize :: String -> [String]
+    tokenize = filter (\w -> length w >= 1) . words . map toUpper
+
+Use composition.
+
+===================
+functions useful for composition
+    flip :: (a -> b -> c) -> b -> a -> c
+    flip f x y = f y x
+
+FOLD
+===================
+
+
