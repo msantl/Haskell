@@ -1,0 +1,110 @@
+=====================
+TAIL RECURSION
+=====================
+
+Recall the sum function
+
+sum xs = sum 0 xs
+    where 
+        sum s [] = s
+        sum s (x:xs) = sum (x+s) xs
+
+where s is the accumulator
+
+This recursion pattern is clled LEFT FOLD. It is abstracted by the foldl
+
+foldl :: (a -> b -> a) -> a -> [b] -> a
+foldl f z [] = z
+foldl f z (x:xs) = foldl f (f x z) xs
+
+The expression 
+    foldl f z [x1, x2, x3, x4, x5]
+evaluates to
+    f (f (f (f (f (x1) x2) x3) x4) x5)
+
+examples:
+sum5 = foldl (+) 0
+length3 = foldl (\acc -> acc + 1) 0
+
+foldl1 -> default value is the first value of the list
+
+maximum1 = foldl1 max
+
+====================
+DATA TYPES
+====================
+
+data Tricolor = Red | Green | Blue
+
+Deriving: keyword deriving
+
+Data Tricolor = Red | Green | Blue deriving Show
+
+Data constructors must be unique
+    we can not use the same data constructor for different types
+
+The constructors Red, Green and Blue are actually values. We call such
+constructors NULLARY CONSTRUCTORS. They have zero arguments.
+
+
+====================
+RECORDS
+====================
+
+data Level = Bachelor | Master | PhD deriving (Show, Eq)
+data Student2 = Student2 String String String Level Double deriving Show
+
+firstName2 :: Student2 -> String
+firstName2 (Student2 f _ _ _ _) = f
+
+lastName2 :: Student2 -> String
+lastName2 (Student2 _ f _ _ _) = f
+
+
+......
+
+This is somewhat tedious and long-winded. It is better to use RECORDS:
+
+    data Student = Student {
+        firstName :: String,
+        lastName :: String,
+        studentId :: String,
+        level :: Level,
+        avgGrade :: Double
+    } deriving Show
+
+this gives us 
+    
+    firstName :: Student -> String
+    lastName :: Student -> String
+    studentId :: Student -> String
+    level :: Student -> Level
+    avgGrade :: Student -> Double
+
+when we define a record we dont need to define all fields
+
+we can modify a value in a record
+
+    bestStudent2 = bestStudent {avgGrade = 4.9}
+
+We can define a record in a shorter way, respecting the order of the fields
+
+newStudent2 = Student "Ivan" "Horvat" "12345" Master 3.9
+
+
+====================
+PARAMETRIZED TYPES
+====================
+
+    data OldLevels = Graduate | Doctorate deriving Show
+    data GeneralStudent a = Student3 String String String a Double deriving Show
+
+    type BolognaStudent = GeneralStudent Level
+    type FER1Student    = GeneralStudent OldLevels
+
+Very important parametrized data type (Data.Maybe)
+    data Maybe a = Nothing | Just a
+
+Extension of Maybe is Either
+    data Either a b = Left a | Right b
+
