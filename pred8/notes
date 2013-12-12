@@ -1,0 +1,49 @@
+====================
+FMAP
+====================
+
+Map for data types that can be Maybe (Just or Nothing)
+
+====================
+RECURSIVE DATA STRUCTURES
+====================
+
+data Sex = Male | Female deriving (Show, Read, Eq, Ord)
+
+data Person = Person {
+    idNumber :: String,
+    forename :: String,
+    surname :: String,
+    sex :: Sex,
+    age :: Int,
+    partner :: Maybe Person,
+    children :: [Person]
+} deriving (Show, Read, Eq, Ord)
+
+pero = Person "2323" "Pero" "Peric" Male 45 (Just ana) [marko]
+ana = Person "3244" "Ana" "Anic" Female 43 (Just pero) [marko]
+marko = Person "4341" "Marko" "Peric" Male 22 Nothing []
+
+Function "maybe"
+    - it takes a default value b if we get a Nothing, if we get a Just then we
+      apply a function 
+    - maybe :: b -> (a -> b) -> Maybe a -> b
+
+-- official solutions for 2.1 and 2.2
+
+partnersMother p = case partner2 p of
+    Nothing -> Nothing
+    Just p -> mother2 p
+
+parentCheck p = p `elem` cm && p `elem` cf  
+    where   cm = map personId2 $ maybe [p] children2 $ mother2 p
+            cf = map personId2 $ maybe [p] children2 $ father2 p
+        
+Use "undefined" when we want to type check
+
+====================
+DERIVING TYPE CLASS INSTANCES
+====================
+
+
+
