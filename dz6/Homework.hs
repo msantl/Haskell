@@ -105,9 +105,9 @@ single :: Eq a => a -> Set a
 single x = (\y -> if x == y then True else False)
 
 -- 6.c
--- union - a function that returns the union of two sets
-union :: Set a -> Set a -> Set a
-union s1 s2 = (\y -> if s1 y || s2 y then True else False)
+-- union' - a function that returns the union of two sets
+union' :: Set a -> Set a -> Set a
+union' s1 s2 = (\y -> if s1 y || s2 y then True else False)
 
 -- 6.d
 -- difference - a function that returns the difference between two sets
@@ -116,9 +116,9 @@ difference s1 s2 = (\y -> if (s1 y) /= (s2 y) then True else False)
 
 
 -- 6.e
--- insert - a function that inserts an element into the set
-insert :: Eq a => a -> Set a -> Set a
-insert x s1 = (\y -> if s1 y || x == y then True else False)
+-- insert' - a function that inserts an element into the set
+insert' :: Eq a => a -> Set a -> Set a
+insert' x s1 = (\y -> if s1 y || x == y then True else False)
 
 
 -- 6.f
@@ -142,14 +142,14 @@ reduce xss f g
 
 -- 8
 -- 8.a
--- insert' - the function takes an element and a list and inserts the element
+-- insert'' - the function takes an element and a list and inserts the element
 --           into the list at the first position where the newly inserted
 --           element will be less than or equal to the next element
 -- @param a     - element that needs to be inserted
 -- @param [a]   - list where we need to insert that element
 -- @return [a]  - list containing the new element
-insert' :: Ord a => a -> [a] -> [a]
-insert' x xs
+insert'' :: Ord a => a -> [a] -> [a]
+insert'' x xs
     | null xs           = [x]
     | (maximum xs) <= x = xs ++ [x]
     | otherwise         = foldl ubaci [] xs
