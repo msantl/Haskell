@@ -1,3 +1,4 @@
+import qualified Data.Map as M
 import Data.List
 import Data.Char
 import Prelude
@@ -129,11 +130,38 @@ concat' (x:xs) = concatenate x xs 0
 
 -- 4
 
+-- 4.a
+-- data Expr =
+-- let e = Add (Var "x") (Mul (Val 2.0) (Add (Var "y") (Val 7.5)))
+
+-- 4.b
+-- showExpr :: Expr -> String
+
+-- 4.c
+-- subst :: String -> Expr -> Expr -> Expr
+
+-- 4.d
+-- type VarAssignments = M.Map String Double
+-- eval :: VarAssignments -> Expr -> Maybe Double
+--
+-- let vars = M.fromList[("x", 10), ("y", 2.5)]
 
 -- 5
-data Trie k a = Leaf a | Branch [(k, Trie k a)] deriving Show
+data Trie k a = Leaf a | Branch [(Maybe k, Trie k a)] deriving Show
 
 -- 5.a
 empty' :: Trie k a
 empty' = Branch []
+
+-- 5.b
+-- insert' :: Eq k => [k] -> a -> Trie k a -> Trie k a
+
+-- 5.c
+-- fromList' :: [([k], a)] -> Trie k a
+
+-- 5.d
+-- lookup' :: Eq k => [k] -> Trie k a -> Maybe a
+
+-- 5.e
+-- delete' :: Eq k => [k] -> Trie k a -> Trie k a
 
