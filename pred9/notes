@@ -1,0 +1,75 @@
+=======================
+DERIVING HIGH CLASS INSTANCES
+=======================
+
+=======================
+DEFINING TYPE CLASS INSTANCES
+=======================
+
+instace Eq Person where
+    p1 == p2 = idNumber p1 == idNumber p2
+
+and now
+    pero == pero
+will work
+
+instace Ord Person where
+    p1 <= p2 = idNumber p1 <= idNumber p2
+
+=======================
+CUSTOM TYPE CLASSES AND STANDARD DATA TYPES
+=======================
+
+class Ageing a where
+    currentAge  :: a -> Int
+    maxAge      :: a -> Int
+    makeOlder   :: a -> a
+
+data Breed = Beagle | Husky | Pekingese deriving (Eq, Ord, Show, Read)
+data Dog = Dog {
+    dogName     :: String,
+    dogBreed    :: Breed,
+    dogAge      :: Int 
+} deriving (Eq, Ord, Show, Read)
+
+instance Ageing Dog where
+    currentAge - dogAge
+    makeOlder d = d {dogAge = dogAge d + 1}
+    maxAge d = case dogBreed d of
+        Husky   -> 29
+        _       -> 20
+
+veryOld :: Ageing a => a -> Bool
+veryOld x = 10 * currentAge x >= 8 * maxAge x
+
+
+class Pushable t where
+    push    :: a -> t a -> t a
+    peek    :: t a -> a
+    pop     :: t a -> t a
+
+instance Pushable [] where
+    push x xs   = x:xs
+    peek (x:_)  = x
+    peek []     = error "Empty List"
+    pop (_:xs)  = xs
+    pop []      = error "Empty List"
+
+
+=======================
+FUNCTOR
+=======================
+category theory => Functor => takes one category and gives another category
+
+=======================
+FOLDABLE
+=======================
+
+
+=======================
+STANDARD DATA TYPES
+=======================
+
+Data.Set ...
+
+
