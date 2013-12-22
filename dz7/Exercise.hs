@@ -159,10 +159,15 @@ instance Show Person where
 -- 6
 
 -- 6.1
-instance Eq (MyList a) where
+instance Eq a => Eq (MyList a) where
+    Empty == Empty = True
+    (Cons a _) == (Cons b _) = a == b
     _ == _ = False
 
 -- 6.2
-instance Eq (Tree a) where
-    _ == _ = False
+instance (Eq a, Ord a) => Eq (Tree a) where
+    a == b = l1 == l2
+        where
+            l1 = sortAndNub $ treeToList a
+            l2 = sortAndNub $ treeToList b
 
