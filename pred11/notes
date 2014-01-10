@@ -1,0 +1,79 @@
+======================
+Input/Output operations 2
+======================
+
+Reading from streams
+
+    main1 :: IO ()
+    main1 = do
+        c <- getChar
+        putChar $ toUpper c
+        eof <- isEOF
+        if eof then return () else main1
+
+A stream is acctually a string that contains the whole input.
+
+For reading streams from standard input we use the function:
+    getContents :: IO String
+
+    main3 :: IO ()
+    main3 = do
+        s <- getContents
+        putStr $ map toUpper s
+
+This will read in at most 10 characters
+main4 :: IO ()
+main4 = do
+    s <- getContents
+    putStr . take 10 $ map toUpper s
+
+
+Often we want oto read some data from standard input, transform them, and print
+to standard output. 
+
+interact :: (String -> String) -> IO ()
+interact f = do 
+    s <- getContents
+    putStr(f s)
+
+======================
+Working with files
+======================
+hPutStr :: Handle -> String -> IO ()
+hPutStrLn :: Handle -> String -> IO ()
+hGetLine :: Handle -> IO String
+hGetChar :: Handle -> IO Char
+hGetContents :: Handle -> IO String
+
+openFile :: FilePath -> IOMode -> IO Handle
+
+data IOMode = ReadMode | WriteMode | AppendMode | ReadWriteMode
+
+    cat2 :: FilePath -> IO ()
+    cat2 f = do
+        h <- openFile f ReadMode
+        s <- hGetContents h
+        putStr s
+        hClose h
+
+withFile :: FilePath -> IOMode -> (Handle -> IO a) -> IO a
+
+hFileSize :: Handle -> IO Integer
+hSeek :: Handle -> SeekMode -> Integer -> IO ()
+hTell :: Handle -> IO Integer
+hFlush :: Handle -> IO ()
+hIsEOF :: Handle -> IO Bool
+
+readFile :: FilePath -> IO String
+writeFile :: FilePath -> String -> IO ()
+
+======================
+
+======================
+
+======================
+
+======================
+
+======================
+
