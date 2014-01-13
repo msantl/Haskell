@@ -1,4 +1,4 @@
-import Prelude hiding (foldr,foldl,foldr1, all)
+import Prelude hiding (foldr,foldl,foldr1, all, elem)
 import Data.Functor
 import Data.Foldable
 
@@ -6,8 +6,26 @@ import qualified Data.Set as S
 import qualified Data.Map as M
 import qualified Data.Tree as T
 
--- 1
 data Sex = Male | Female deriving (Show,Read,Eq,Ord)
+
+data Person2 = Person2 {
+  personId2 :: String,
+  forename2 :: String,
+  surname2  :: String,
+  sex2      :: Sex,
+  mother2   :: Maybe Person2,
+  father2   :: Maybe Person2,
+  partner2  :: Maybe Person2,
+  children2 :: [Person2] } deriving (Show,Read,Eq,Ord)
+
+data MyList a = Empty | Cons a (MyList a) deriving (Show,Read,Ord, Eq)
+
+data Tree a = Null | Node a (Tree a) (Tree a) deriving (Show)
+
+data Weekday =
+  Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday
+  deriving (Show,Enum)
+
 data Person = Person {
   idNumber :: String,
   forename :: String,
@@ -15,7 +33,9 @@ data Person = Person {
   sex      :: Sex,
   age      :: Int,
   partner  :: Maybe Person,
-  children :: [Person] } deriving (Show,Read,Eq,Ord)
+  children :: [Person] } deriving (Read,Eq,Ord)
+
+-- 1
 
 data Breed = Beagle | Husky | Pekingese deriving (Eq,Ord,Show,Read)
 data Dog = Dog {
@@ -60,10 +80,6 @@ instance Nameable Person where
 
 instance Nameable Dog where
     name x = (dogName x) ++ " the Dog"
-
--- 2
-data MyList a = Empty | Cons a (MyList a) deriving (Show,Read,Eq,Ord)
-data Tree a = Null | Node a (Tree a) (Tree a) deriving (Show,Eq)
 
 -- 2.1
 class Takeable t where
