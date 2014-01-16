@@ -1,0 +1,28 @@
+========================
+Monads 2
+========================
+
+========================
+State Monad
+========================
+    haskell => Stateless computation
+    state monad hides explict state and makes it accessible within the monad 
+    IO Monad => State Monad
+
+    a "function" that takes a state and returns a new state and return value
+
+========================
+List Monad
+========================
+    a list is also a monad instance
+
+instance Monad [] where
+    return x = [x]
+    xs >>= f = concat (map f xs)
+    fail _ = []
+
+========================
+Functions for working with monads
+========================
+
+
