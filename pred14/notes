@@ -1,0 +1,106 @@
+===========================
+Misc
+===========================
+
+
+===========================
+Strictness
+===========================
+Haskell is a lazy language. It wont evaluate an expression until this is
+required.
+
+Instead of evaluating the complete list, Haskell generates a so-called THUNK of
+SUSPENSION -- a pointer to the expression and a data structure containing all
+required to evaluate the expression. A thunk will only be evaluated when
+required.
+
+Example:
+    (&&) :: Bool -> Bool -> Bool
+    False   && _    = False
+    True    && x    = x
+
+This function is not strict in its second argument. This means that False &&
+Undefined will work , but Undefined && False wont work.
+
+LAZY EVALUATION is just one of the possible ways to implement NON-STRICTNESS.
+
+
+===========================
+Modules
+===========================
+import Data.List
+import Data.List (lookup)           - import only lookup
+import Data.List hiding (lookup)    - import all but lookup
+import qualified Data.Map           
+import Data.Map (Map)
+import qualified Data.Map as M
+
+Every module is defined in a separate file.
+
+Data/List.hs            => Data.List
+Data/Time.hs            => Data.Time
+Data/Time/Calendar.hs   => Data.Time.Calendar
+
+Specify what we want to export:
+
+module Data.Trie (
+    Trie,       # exporty the type only (not the data constructor)
+    insert,
+    lookup,
+    remove,
+...) where
+
+module Data.Trie (
+    Trie (..),
+...) where
+
+module Data.Trie (
+    Trie (Leaf),
+...), where
+
+===========================
+Packages
+===========================
+
+Cabal - needed to install packages
+
+
+
+===========================
+Resources
+===========================
+
+haskell home:
+    www.haskell.org
+
+ghc:
+    www.haskell.org/ghc
+
+libraries:
+    haskell hierarchical libraries
+
+hackage:
+    hackage.haskell.org
+
+hoogle:
+    haskell.org/hoogle
+
+try haskell:
+    tryhaskell.org
+
+    learnyouahaskell.org
+
+fpcomplete school of haskell:
+    haskell.fpcomplete.com/school
+
+haskell wiki:
+    en.wikibooks.org/wiki/Haskell
+
+real world haskell:
+    book.realworldhaskell.org/read/
+
+Community:
+    Haskell reddit  /r/haskell
+    
+haskellers:
+    haskellers.com
